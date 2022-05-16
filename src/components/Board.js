@@ -8,6 +8,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 const Board = () => {
   const [lists, setLists] = useState([]);
   const [input, setInput] = useState("");
+  const [showRename, setShowRename] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();

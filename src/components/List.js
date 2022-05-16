@@ -7,6 +7,8 @@ import uuid from "react-uuid";
 
 const List = ({ title, id, tasks, deleteList }) => {
   const [input, setInput] = useState("");
+  const [renameInput, setRenameInput] = useState("");
+  const [showRename, setShowRename] = useState(false);
   const [list, setList] = useState({ title: title, id: id, tasks: tasks });
 
   const handleSubmit = (e) => {
@@ -23,6 +25,20 @@ const List = ({ title, id, tasks, deleteList }) => {
     setInput("");
   };
 
+  const openModal = () => {
+    setShowRename(true);
+    setRenameInput(list.title);
+  };
+
+  const handleRename = (e) => {
+    e.preventDefault();
+    if (renameInput && renameInput.trim() !== "") {
+      setList((prevState) => ({ ...prevState, title: renameInput }));
+    }
+    setShowRename(false);
+    setRenameInput("");
+  };
+
   const addTask = (task) => {
     setList((prevState) => ({ ...prevState, tasks: [...prevState.tasks, task] }));
   };
@@ -37,7 +53,7 @@ const List = ({ title, id, tasks, deleteList }) => {
           </button>
           <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
             <li className="">
-              <a className="text-sm rounded-t bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" href="#">
+              <a className="text-sm rounded-t bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" onClick={openModal}>
                 Rename List
               </a>
             </li>
@@ -70,6 +86,37 @@ const List = ({ title, id, tasks, deleteList }) => {
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </form>
+      {showRename ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-sm">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="relative p-6 flex-auto">
+                  <form onSubmit={handleRename} className="flex w-full">
+                    <label htmlFor="listTitle" className="sr-only">
+                      List Title
+                    </label>
+                    <input
+                      name="listTitle"
+                      type="text"
+                      className="rounded border py-2 px-3 text-gray-700 leading-tight  w-full"
+                      value={renameInput}
+                      onChange={(e) => setRenameInput(e.target.value)}
+                    />
+                    <button type="submit" className="mx-2 bg-transparent text-gray-400 hover:text-green-500">
+                      Rename
+                    </button>
+                    <button type="button" className="mx-2 bg-transparent text-gray-400 hover:text-red-500" onClick={() => setShowRename(false)}>
+                      Close
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
     </div>
   );
 };
