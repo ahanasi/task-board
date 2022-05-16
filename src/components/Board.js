@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
 import moment from "moment";
 import List from "./List";
+import { list } from "postcss";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
@@ -13,16 +14,14 @@ const Board = () => {
         id: 0,
         tasks: [
           {
-            title: faker.lorem.words(),
+            title: "test 1",
             taskID: 0,
             listNum: 0,
-            dateCreated: faker.date.soon(),
           },
           {
-            title: faker.lorem.words(),
+            title: "dsfadfadsf",
             taskID: 1,
             listNum: 0,
-            dateCreated: faker.date.soon(),
           },
         ],
       },
@@ -31,16 +30,14 @@ const Board = () => {
         id: 1,
         tasks: [
           {
-            title: faker.lorem.words(),
+            title: "dfdfgfdas",
             taskID: 0,
             listNum: 1,
-            dateCreated: faker.date.soon(),
           },
           {
-            title: faker.lorem.words(),
+            title: "dfdfdafdadsf",
             taskID: 1,
             listNum: 1,
-            dateCreated: faker.date.soon(),
           },
         ],
       },
@@ -49,16 +46,14 @@ const Board = () => {
         id: 2,
         tasks: [
           {
-            title: faker.lorem.words(),
+            title: "dfdf",
             taskID: 0,
             listNum: 2,
-            dateCreated: faker.date.soon(),
           },
           {
-            title: faker.lorem.words(),
+            title: "dfdsfdasfad",
             taskID: 1,
             listNum: 2,
-            dateCreated: faker.date.soon(),
           },
         ],
       },
@@ -66,28 +61,15 @@ const Board = () => {
     setLists(testCols);
   }, []);
 
+  useEffect(() => {}, [lists]);
+
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <div className="flex justify-center">
         <div className="min-h-screen flex overflow-x-scroll py-12">
           {lists.map((list) => {
-            return (
-              <List {...list} />
-              //   <div key={list.id} className="bg-gray-100 rounded-lg px-3 py-3 column-width rounded mr-4">
-              //     <p className="text-gray-700 font-semibold font-sans tracking-wide text-sm">{list.title}</p>
-              //     {list.tasks.map((task) => {
-              //       return (
-              //         <div key={task.id} className="max-w-sm bg-white my-3 rounded overflow-hidden shadow-lg">
-              //           <div className="px-6 py-4">
-              //             <p className="text-base">{task.title}</p>
-              //             <p className="text-base">{moment(task.dateCreated).format("MMM Do YY")}</p>
-              //           </div>
-              //         </div>
-              //       );
-              //     })}
-              //   </div>
-            );
+            return <List {...list} />;
           })}
         </div>
       </div>
