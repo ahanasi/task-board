@@ -7,8 +7,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
+  const [users, setUsers] = useState([
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+  ]);
   const [input, setInput] = useState("");
-  const [showRename, setShowRename] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,11 +45,26 @@ const Board = () => {
             title: "test 1",
             taskID: 0,
             listNum: "dfdf",
+            assignedTo: [],
           },
           {
             title: "dsfadfadsf",
             taskID: 1,
             listNum: "dfdf",
+            assignedTo: [
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+            ],
           },
         ],
       },
@@ -57,11 +76,39 @@ const Board = () => {
             title: "dfdfgfdas",
             taskID: 0,
             listNum: "37734",
+            assignedTo: [
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+            ],
           },
           {
             title: "dfdfdafdadsf",
             taskID: 1,
             listNum: "37734",
+            assignedTo: [
+              users[
+                faker.datatype.number({
+                  min: 0,
+                  max: 2,
+                })
+              ],
+            ],
           },
         ],
       },
@@ -73,11 +120,13 @@ const Board = () => {
             title: "dfdf",
             taskID: 0,
             listNum: "324234",
+            assignedTo: [],
           },
           {
             title: "dfdsfdasfad",
             taskID: 1,
             listNum: "324234",
+            assignedTo: [users[faker.datatype.number({ min: 0, max: 2 })]],
           },
         ],
       },
@@ -90,9 +139,9 @@ const Board = () => {
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-pink-500 mb-3">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto  px-4 lg:static lg:block lg:justify-start">
-            <a className="text-sm font-mono leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-white" href="#">
+            <button type="link" className="text-sm font-mono leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-white" href="#">
               task Board
-            </a>
+            </button>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
