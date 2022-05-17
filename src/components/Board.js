@@ -52,13 +52,13 @@ const Board = () => {
         tasks: [
           {
             title: "test 1",
-            taskID: 0,
+            taskID: uuid(),
             listNum: "dfdf",
             assignedTo: faker.helpers.arrayElements(users, 2),
           },
           {
             title: "dsfadfadsf",
-            taskID: 1,
+            taskID: uuid(),
             listNum: "dfdf",
             assignedTo: faker.helpers.arrayElements(users, 4),
           },
@@ -70,7 +70,7 @@ const Board = () => {
         tasks: [
           {
             title: "dfdfgfdas",
-            taskID: 0,
+            taskID: uuid(),
             listNum: "37734",
             assignedTo: faker.helpers.arrayElements(users, 3),
           },
@@ -88,13 +88,13 @@ const Board = () => {
         tasks: [
           {
             title: "dfdf",
-            taskID: 0,
+            taskID: uuid(),
             listNum: "324234",
             assignedTo: [],
           },
           {
             title: "dfdsfdasfad",
-            taskID: 1,
+            taskID: uuid(),
             listNum: "324234",
             assignedTo: faker.helpers.arrayElements(users, 1),
           },
