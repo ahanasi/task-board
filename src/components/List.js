@@ -19,6 +19,7 @@ const List = ({ title, id, tasks, deleteList }) => {
         taskID: list.length,
         listNum: list.id,
         dateCreated: new Date(),
+        assignedTo: [],
       };
       addTask(task);
     }

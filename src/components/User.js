@@ -1,5 +1,5 @@
 const User = (user) => {
-  return <img class="relative z-30 inline object-cover w-12 h-12 border-2 border-white rounded-full" src={user.url} alt={user.name} />;
+  return <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white" src={user.url} alt={user.name} />;
 };
 
 export default User;

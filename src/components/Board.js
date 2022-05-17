@@ -11,6 +11,15 @@ const Board = () => {
     { name: faker.name.firstName(), url: faker.image.avatar() },
     { name: faker.name.firstName(), url: faker.image.avatar() },
     { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), url: faker.image.avatar() },
   ]);
   const [input, setInput] = useState("");
 
@@ -45,26 +54,13 @@ const Board = () => {
             title: "test 1",
             taskID: 0,
             listNum: "dfdf",
-            assignedTo: [],
+            assignedTo: faker.helpers.arrayElements(users, 2),
           },
           {
             title: "dsfadfadsf",
             taskID: 1,
             listNum: "dfdf",
-            assignedTo: [
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-            ],
+            assignedTo: faker.helpers.arrayElements(users, 4),
           },
         ],
       },
@@ -76,39 +72,13 @@ const Board = () => {
             title: "dfdfgfdas",
             taskID: 0,
             listNum: "37734",
-            assignedTo: [
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-            ],
+            assignedTo: faker.helpers.arrayElements(users, 3),
           },
           {
             title: "dfdfdafdadsf",
             taskID: 1,
             listNum: "37734",
-            assignedTo: [
-              users[
-                faker.datatype.number({
-                  min: 0,
-                  max: 2,
-                })
-              ],
-            ],
+            assignedTo: faker.helpers.arrayElements(users, 5),
           },
         ],
       },
@@ -126,7 +96,7 @@ const Board = () => {
             title: "dfdsfdasfad",
             taskID: 1,
             listNum: "324234",
-            assignedTo: [users[faker.datatype.number({ min: 0, max: 2 })]],
+            assignedTo: faker.helpers.arrayElements(users, 1),
           },
         ],
       },
