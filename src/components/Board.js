@@ -39,13 +39,13 @@ const Board = () => {
         id: "dfdf",
         tasks: [
           {
-            title: "test 1",
+            title: faker.lorem.sentence(),
             taskID: uuid(),
             listNum: "dfdf",
             assignedTo: faker.helpers.arrayElements(users, 2),
           },
           {
-            title: "dsfadfadsf",
+            title: faker.lorem.sentence(),
             taskID: uuid(),
             listNum: "dfdf",
             assignedTo: faker.helpers.arrayElements(users, 4),
@@ -57,13 +57,13 @@ const Board = () => {
         id: "37734",
         tasks: [
           {
-            title: "dfdfgfdas",
+            title: faker.lorem.sentence(),
             taskID: uuid(),
             listNum: "37734",
             assignedTo: faker.helpers.arrayElements(users, 3),
           },
           {
-            title: "dfdfdafdadsf",
+            title: faker.lorem.sentence(),
             taskID: 1,
             listNum: "37734",
             assignedTo: faker.helpers.arrayElements(users, 5),
@@ -75,13 +75,13 @@ const Board = () => {
         id: "324234",
         tasks: [
           {
-            title: "dfdf",
+            title: faker.lorem.sentence(),
             taskID: uuid(),
             listNum: "324234",
             assignedTo: [],
           },
           {
-            title: "dfdsfdasfad",
+            title: faker.lorem.sentence(),
             taskID: uuid(),
             listNum: "324234",
             assignedTo: faker.helpers.arrayElements(users, 1),
@@ -90,7 +90,7 @@ const Board = () => {
       },
     ];
     setLists(testCols);
-  }, []);
+  }, [users]);
 
   return (
     <div>
