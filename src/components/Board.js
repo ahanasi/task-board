@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import seed from "../seed";
+import { userSeed, taskSeed } from "../seed";
 import faker from "@faker-js/faker";
 import uuid from "react-uuid";
 import List from "./List";
@@ -8,7 +8,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
-  const [users, setUsers] = useState(seed);
+  const [users, setUsers] = useState(userSeed);
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
@@ -33,63 +33,7 @@ const Board = () => {
   };
 
   useEffect(() => {
-    const testCols = [
-      {
-        title: "To-Do",
-        id: "dfdf",
-        tasks: [
-          {
-            title: faker.lorem.sentence(),
-            taskID: uuid(),
-            listNum: "dfdf",
-            assignedTo: faker.helpers.arrayElements(users, 2),
-          },
-          {
-            title: faker.lorem.sentence(),
-            taskID: uuid(),
-            listNum: "dfdf",
-            assignedTo: faker.helpers.arrayElements(users, 4),
-          },
-        ],
-      },
-      {
-        title: "Doing",
-        id: "37734",
-        tasks: [
-          {
-            title: faker.lorem.sentence(),
-            taskID: uuid(),
-            listNum: "37734",
-            assignedTo: faker.helpers.arrayElements(users, 3),
-          },
-          {
-            title: faker.lorem.sentence(),
-            taskID: 1,
-            listNum: "37734",
-            assignedTo: faker.helpers.arrayElements(users, 5),
-          },
-        ],
-      },
-      {
-        title: "Done",
-        id: "324234",
-        tasks: [
-          {
-            title: faker.lorem.sentence(),
-            taskID: uuid(),
-            listNum: "324234",
-            assignedTo: [],
-          },
-          {
-            title: faker.lorem.sentence(),
-            taskID: uuid(),
-            listNum: "324234",
-            assignedTo: faker.helpers.arrayElements(users, 1),
-          },
-        ],
-      },
-    ];
-    setLists(testCols);
+    setLists(taskSeed);
   }, [users]);
 
   return (

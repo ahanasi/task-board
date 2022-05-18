@@ -1,8 +1,13 @@
 import faker from "@faker-js/faker";
 import uuid from "react-uuid";
 
-const seed = () => {
+export const userSeed = () => {
   return [
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
     { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
     { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
     { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
@@ -78,4 +83,63 @@ const seed = () => {
   ];
 };
 
-export default seed;
+export const taskSeed = () => {
+  return [
+    {
+      title: "To-Do",
+      id: "dfdf",
+      tasks: [
+        {
+          title: faker.lorem.sentence(),
+          taskID: uuid(),
+          listNum: "dfdf",
+          assignedTo: faker.helpers.arrayElements(userSeed(), 2),
+        },
+        {
+          title: faker.lorem.sentence(),
+          taskID: uuid(),
+          listNum: "dfdf",
+          assignedTo: faker.helpers.arrayElements(userSeed(), 4),
+        },
+      ],
+    },
+    {
+      title: "Doing",
+      id: "37734",
+      tasks: [
+        {
+          title: faker.lorem.sentence(),
+          taskID: uuid(),
+          listNum: "37734",
+          assignedTo: faker.helpers.arrayElements(userSeed(), 3),
+        },
+        {
+          title: faker.lorem.sentence(),
+          taskID: 1,
+          listNum: "37734",
+          assignedTo: faker.helpers.arrayElements(userSeed(), 5),
+        },
+      ],
+    },
+    {
+      title: "Done",
+      id: "324234",
+      tasks: [
+        {
+          title: faker.lorem.sentence(),
+          taskID: uuid(),
+          listNum: "324234",
+          assignedTo: [],
+        },
+        {
+          title: faker.lorem.sentence(),
+          taskID: uuid(),
+          listNum: "324234",
+          assignedTo: faker.helpers.arrayElements(userSeed(), 1),
+        },
+      ],
+    },
+  ];
+};
+
+export default { userSeed, taskSeed };
