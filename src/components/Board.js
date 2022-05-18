@@ -8,18 +8,18 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 const Board = () => {
   const [lists, setLists] = useState([]);
   const [users, setUsers] = useState([
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
+    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
   ]);
   const [input, setInput] = useState("");
 
@@ -147,7 +147,7 @@ const Board = () => {
       <div className="flex justify-center">
         <div className="flex w-screen min-h-screen p-10 space-x-4 overflow-auto text-gray-700">
           {lists.map((list) => {
-            return <List {...list} deleteList={deleteList} key={uuid()} />;
+            return <List {...list} deleteList={deleteList} users={users} key={uuid()} />;
           })}
         </div>
       </div>

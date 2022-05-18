@@ -1,14 +1,49 @@
 import moment from "moment";
 import uuid from "react-uuid";
 import User from "./User";
+import { Hint } from "react-autocomplete-hint";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 
-const Task = (task) => {
+const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
+  const [hintData, setHintData] = useState([]);
+  const [text, setText] = useState("");
+  const [task, setTask] = useState({ title: title, taskID: taskID, listNum: listNum, dateCreated: dateCreated, assignedTo: assignedTo });
+
   const showUserList = (taskID) => {
-    debugger;
     const formEl = document.getElementById(taskID);
     formEl.classList.toggle("-translate-x-28");
+  };
+
+  const getData = () => {
+    const strOptions = users.map((user) => {
+      return {
+        id: user.id,
+        label: user.name,
+      };
+    });
+    setHintData(strOptions);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userToAdd = users.filter((user) => {
+      return user.name.toLowerCase() === text.toLowerCase();
+    });
+    const userAssignedTask = task.assignedTo.some((user) => user.name.toLowerCase() === text.toLowerCase());
+    if (userToAdd.length === 1 && !userAssignedTask) {
+      const updatedTask = {
+        ...task,
+        assignedTo: [...task.assignedTo, userToAdd[0]],
+      };
+      setTask(updatedTask);
+    }
+    setText("");
   };
 
   return (
@@ -19,14 +54,20 @@ const Task = (task) => {
       <div className="px-3 pt-4 pb-2 max-w-full">
         <p className="text-base break-all pb-4">{task.title}</p>
         <div className="text-xs text-gray-300 pt-2 flex justify-start">
-          <form id={task.taskID} className="addUserform w-full max-w-sm transition duration-500 ease-in-out -translate-x-28">
+          <form id={task.taskID} onSubmit={(e) => handleSubmit(e)} className="addUserform w-full max-w-sm transition duration-500 ease-in-out -translate-x-28">
             <div className="flex items-center border-b border-teal-500 py-2">
-              <input
-                className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                type="text"
-                placeholder="Jane Doe"
-                aria-label="Full name"
-              />
+              <Hint options={hintData} allowTabFill>
+                <input
+                  className="input-with-hint appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  type="text"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  aria-label="Full name"
+                />
+              </Hint>
+              <button type="submit" className="sr-only mx-2 flex-shrink-0 border-transparent text-sm bg-transparent text-gray-400 hover:text-gray-500">
+                <FontAwesomeIcon icon={faCheck} />
+              </button>
               <button
                 type="button"
                 className="mx-2 flex-shrink-0 border-transparent text-sm bg-transparent text-gray-400 hover:text-gray-500"

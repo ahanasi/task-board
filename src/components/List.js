@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faPlus } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 
-const List = ({ title, id, tasks, deleteList }) => {
+const List = ({ title, id, tasks, deleteList, users }) => {
   const [input, setInput] = useState("");
   const [renameInput, setRenameInput] = useState("");
   const [showRename, setShowRename] = useState(false);
@@ -68,7 +68,7 @@ const List = ({ title, id, tasks, deleteList }) => {
       </div>
       <div className="task-wrapper flex flex-col items-center">
         {list.tasks.map((task) => {
-          return <Task {...task} key={uuid()} />;
+          return <Task {...task} users={users} key={uuid()} />;
         })}
       </div>
 
