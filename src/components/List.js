@@ -16,7 +16,7 @@ const List = ({ title, id, tasks, deleteList, users }) => {
     if (input && input.trim() !== "") {
       const task = {
         title: input,
-        taskID: list.length,
+        taskID: uuid(),
         listNum: list.id,
         dateCreated: new Date(),
         assignedTo: [],

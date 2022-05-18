@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import seed from "../seed";
 import faker from "@faker-js/faker";
 import uuid from "react-uuid";
 import List from "./List";
@@ -7,20 +8,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
-  const [users, setUsers] = useState([
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-    { name: faker.name.firstName(), id: uuid(), url: faker.image.avatar() },
-  ]);
+  const [users, setUsers] = useState(seed);
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
