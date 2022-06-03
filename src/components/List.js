@@ -54,14 +54,14 @@ const List = ({ title, id, tasks, deleteList, users }) => {
           </button>
           <ul className="dropdown-menu absolute hidden text-gray-700 pt-1">
             <li className="">
-              <a className="text-sm rounded-t bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" onClick={openModal}>
+              <button className="text-sm rounded-t w-full bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" onClick={openModal}>
                 Rename List
-              </a>
+              </button>
             </li>
             <li className="">
-              <a className="text-sm bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" onClick={() => deleteList(list.id)}>
+              <button className="text-sm rounded-b w-full bg-white hover:bg-gray-400 hover:text-white py-2 px-4 block whitespace-no-wrap" onClick={() => deleteList(list.id)}>
                 Delete List
-              </a>
+              </button>
             </li>
           </ul>
         </div>
