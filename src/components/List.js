@@ -45,7 +45,7 @@ const List = ({ title, id, tasks, deleteList, users }) => {
   };
 
   return (
-    <div className="flex flex-col flex-shrink-0 w-1/4 bg-gray-100 rounded-lg px-3 py-3 rounded">
+    <div className="flex flex-col flex-shrink-0 w-1/4 bg-gray-100 rounded-lg px-3 py-3">
       <div className="list-header flex justify-between	">
         <p className="text-gray-700 font-semibold font-sans tracking-wide text-lg my-3">{list.title}</p>
         <div className="dropdown inline-block relative">
