@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faPlus } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 
-const List = ({ title, id, tasks, deleteList, users, updateList }) => {
+const List = ({ title, id, tasks, deleteList, users, updateBoard }) => {
   const [input, setInput] = useState("");
   const [renameInput, setRenameInput] = useState("");
   const [showRename, setShowRename] = useState(false);
@@ -17,10 +17,20 @@ const List = ({ title, id, tasks, deleteList, users, updateList }) => {
     drop: (item) => {
       const taskMoved = item;
       const prevList = taskMoved.listNum;
-      updateList(prevList, id, taskMoved);
+      updateBoard(prevList, id, taskMoved);
       return { taskMoved: taskMoved, id: id };
     },
   }));
+
+  const updateList = (updatedTask) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.taskID === updatedTask.taskID) {
+        task = updatedTask;
+      }
+      return task;
+    });
+    setList((prevState) => ({ ...prevState, tasks: updatedTasks }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +43,7 @@ const List = ({ title, id, tasks, deleteList, users, updateList }) => {
         assignedTo: [],
       };
       addTask(task);
-      updateList(id, id, task);
+      updateBoard(id, id, task);
     }
     setInput("");
   };
@@ -80,7 +90,7 @@ const List = ({ title, id, tasks, deleteList, users, updateList }) => {
       </div>
       <div className="task-wrapper flex flex-col items-center">
         {list.tasks.map((task) => {
-          return <Task {...task} users={users} key={uuid()} />;
+          return <Task {...task} users={users} key={uuid()} updateList={updateList} />;
         })}
       </div>
 

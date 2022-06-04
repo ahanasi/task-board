@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
-const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
+const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users, updateList }) => {
   const [hintData, setHintData] = useState([]);
   const [text, setText] = useState("");
   const [task, setTask] = useState({ title: title, taskID: taskID, listNum: listNum, dateCreated: dateCreated, assignedTo: assignedTo });
@@ -50,6 +50,7 @@ const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
         assignedTo: [...task.assignedTo, userToAdd[0]],
       };
       setTask(updatedTask);
+      updateList(updatedTask);
     }
     setText("");
   };

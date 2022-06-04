@@ -19,7 +19,7 @@ const Board = () => {
     setInput("");
   };
 
-  const updateList = (prevListID, listID, movedTask) => {
+  const updateBoard = (prevListID, listID, movedTask) => {
     if (prevListID === listID) {
       const newLists = lists.map((list) => {
         if (list.id === prevListID) {
@@ -104,7 +104,7 @@ const Board = () => {
         <div className="flex w-screen min-h-screen p-10 space-x-4 overflow-auto text-gray-700">
           <DndProvider backend={HTML5Backend}>
             {lists.map((list) => {
-              return <List {...list} deleteList={deleteList} updateList={updateList} users={users} key={uuid()} />;
+              return <List {...list} deleteList={deleteList} updateBoard={updateBoard} users={users} key={uuid()} />;
             })}
           </DndProvider>
         </div>
