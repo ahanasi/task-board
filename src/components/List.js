@@ -1,15 +1,26 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Task from "./Task";
+import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faPlus } from "@fortawesome/free-solid-svg-icons";
 import uuid from "react-uuid";
 
-const List = ({ title, id, tasks, deleteList, users }) => {
+const List = ({ title, id, tasks, deleteList, users, updateList }) => {
   const [input, setInput] = useState("");
   const [renameInput, setRenameInput] = useState("");
   const [showRename, setShowRename] = useState(false);
   const [list, setList] = useState({ title: title, id: id, tasks: tasks });
+
+  const [, drop] = useDrop(() => ({
+    accept: "task",
+    drop: (item) => {
+      const taskMoved = item;
+      const prevList = taskMoved.listNum;
+      updateList(prevList, id, taskMoved);
+      return { taskMoved: taskMoved, id: id };
+    },
+  }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +56,7 @@ const List = ({ title, id, tasks, deleteList, users }) => {
   };
 
   return (
-    <div className="flex flex-col flex-shrink-0 w-1/4 bg-gray-100 rounded-lg px-3 py-3">
+    <div ref={drop} className="flex flex-col flex-shrink-0 w-1/4 bg-gray-100 rounded-lg px-3 py-3">
       <div className="list-header flex justify-between	">
         <p className="text-gray-700 font-semibold font-sans tracking-wide text-lg my-3">{list.title}</p>
         <div className="dropdown inline-block relative">

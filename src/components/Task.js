@@ -1,6 +1,7 @@
 import moment from "moment";
 import uuid from "react-uuid";
 import User from "./User";
+import { useDrag } from "react-dnd";
 import { Hint } from "react-autocomplete-hint";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -11,24 +12,31 @@ const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
   const [text, setText] = useState("");
   const [task, setTask] = useState({ title: title, taskID: taskID, listNum: listNum, dateCreated: dateCreated, assignedTo: assignedTo });
 
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item: task,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   const showUserList = (taskID) => {
     const formEl = document.getElementById(taskID);
     formEl.classList.toggle("-translate-x-28");
   };
 
-  const getData = () => {
-    const strOptions = users.map((user) => {
-      return {
-        id: user.id,
-        label: user.name,
-      };
-    });
-    setHintData(strOptions);
-  };
-
   useEffect(() => {
+    const getData = () => {
+      const strOptions = users.map((user) => {
+        return {
+          id: user.id,
+          label: user.name,
+        };
+      });
+      setHintData(strOptions);
+    };
     getData();
-  }, []);
+  }, [users]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,9 +59,19 @@ const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
       <div className="text-xs text-gray-300 px-2 pt-2 flex">
         <div className="flex w-full justify-end items-center">{moment(task.dateCreated).format("MMM Do YY")}</div>
       </div>
-      <div className="px-3 pt-4 pb-2 max-w-full">
-        <p className="text-base break-all pb-4">{task.title}</p>
-        <div className="text-xs text-gray-300 pt-2 flex justify-start">
+      <div className="max-w-full">
+        <div
+          ref={drag}
+          style={{
+            opacity: isDragging ? 0.5 : 1,
+            cursor: "move",
+          }}
+          className="p-2"
+        >
+          {" "}
+          <p className="text-base break-all pb-4">{task.title}</p>
+        </div>
+        <div className="p-2 text-xs text-gray-300 pt-2 flex justify-start">
           <form id={task.taskID} onSubmit={(e) => handleSubmit(e)} className="addUserform w-full max-w-sm transition duration-500 ease-in-out -translate-x-28">
             <div className="flex items-center border-b border-teal-500 py-2">
               <Hint options={hintData} allowTabFill>
@@ -77,7 +95,6 @@ const Task = ({ title, taskID, listNum, dateCreated, assignedTo, users }) => {
               </button>
             </div>
           </form>
-
           <div className="flex w-full -space-x-2 overflow-hidden justify-end">
             {task.assignedTo.map((user) => (
               <User {...user} key={uuid()} />

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { userSeed, taskSeed } from "../seed";
-import faker from "@faker-js/faker";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import uuid from "react-uuid";
 import List from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { list } from "postcss";
 
 const Board = () => {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState(taskSeed);
   const [users, setUsers] = useState(userSeed);
   const [input, setInput] = useState("");
 
@@ -15,6 +17,23 @@ const Board = () => {
     e.preventDefault();
     createList(input);
     setInput("");
+  };
+
+  const updateList = (prevListID, listID, movedTask) => {
+    if (prevListID === listID) return;
+    let listToRemoveFrom = lists.find((list) => list.id === prevListID);
+    let listToAddTo = lists.find((list) => list.id === listID);
+    const oldTaskList = listToRemoveFrom.tasks.filter((task) => task.taskID !== movedTask.taskID);
+    const newTaskList = [...listToAddTo.tasks, { ...movedTask, listNum: listID }];
+    const newLists = lists.map((list) => {
+      if (list.id === prevListID) {
+        list.tasks = oldTaskList;
+      } else if (list.id === listID) {
+        list.tasks = newTaskList;
+      }
+      return list;
+    });
+    setLists(newLists);
   };
 
   const createList = (title) => {
@@ -31,10 +50,6 @@ const Board = () => {
   const deleteList = (listID) => {
     setLists((prevState) => prevState.filter((list) => list.id !== listID));
   };
-
-  useEffect(() => {
-    setLists(taskSeed);
-  }, [users]);
 
   return (
     <div>
@@ -78,9 +93,11 @@ const Board = () => {
       </nav>
       <div className="flex justify-center">
         <div className="flex w-screen min-h-screen p-10 space-x-4 overflow-auto text-gray-700">
-          {lists.map((list) => {
-            return <List {...list} deleteList={deleteList} users={users} key={uuid()} />;
-          })}
+          <DndProvider backend={HTML5Backend}>
+            {lists.map((list) => {
+              return <List {...list} deleteList={deleteList} updateList={updateList} users={users} key={uuid()} />;
+            })}
+          </DndProvider>
         </div>
       </div>
     </div>
