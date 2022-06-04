@@ -33,6 +33,7 @@ const List = ({ title, id, tasks, deleteList, users, updateList }) => {
         assignedTo: [],
       };
       addTask(task);
+      updateList(id, id, task);
     }
     setInput("");
   };

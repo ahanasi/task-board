@@ -20,20 +20,29 @@ const Board = () => {
   };
 
   const updateList = (prevListID, listID, movedTask) => {
-    if (prevListID === listID) return;
-    let listToRemoveFrom = lists.find((list) => list.id === prevListID);
-    let listToAddTo = lists.find((list) => list.id === listID);
-    const oldTaskList = listToRemoveFrom.tasks.filter((task) => task.taskID !== movedTask.taskID);
-    const newTaskList = [...listToAddTo.tasks, { ...movedTask, listNum: listID }];
-    const newLists = lists.map((list) => {
-      if (list.id === prevListID) {
-        list.tasks = oldTaskList;
-      } else if (list.id === listID) {
-        list.tasks = newTaskList;
-      }
-      return list;
-    });
-    setLists(newLists);
+    if (prevListID === listID) {
+      const newLists = lists.map((list) => {
+        if (list.id === prevListID) {
+          list.tasks = [...list.tasks, movedTask];
+        }
+        return list;
+      });
+      setLists(newLists);
+    } else {
+      let listToRemoveFrom = lists.find((list) => list.id === prevListID);
+      let listToAddTo = lists.find((list) => list.id === listID);
+      const oldTaskList = listToRemoveFrom.tasks.filter((task) => task.taskID !== movedTask.taskID);
+      const newTaskList = [...listToAddTo.tasks, { ...movedTask, listNum: listID }];
+      const newLists = lists.map((list) => {
+        if (list.id === prevListID) {
+          list.tasks = oldTaskList;
+        } else if (list.id === listID) {
+          list.tasks = newTaskList;
+        }
+        return list;
+      });
+      setLists(newLists);
+    }
   };
 
   const createList = (title) => {
