@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Task from "./Task";
 import { useDrop } from "react-dnd";
 import PropTypes from "prop-types";
@@ -30,6 +30,7 @@ const List = ({ title, id, tasks, deleteList, users, updateBoard }) => {
       return task;
     });
     setList((prevState) => ({ ...prevState, tasks: updatedTasks }));
+    updateBoard(id, id, updatedTask);
   };
 
   const handleSubmit = (e) => {
@@ -43,9 +44,9 @@ const List = ({ title, id, tasks, deleteList, users, updateBoard }) => {
         assignedTo: [],
       };
       addTask(task);
+      setInput("");
       updateBoard(id, id, task);
     }
-    setInput("");
   };
 
   const openModal = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { userSeed, taskSeed } from "../seed";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -6,11 +6,10 @@ import uuid from "react-uuid";
 import List from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { list } from "postcss";
 
 const Board = () => {
   const [lists, setLists] = useState(taskSeed);
-  const [users, setUsers] = useState(userSeed);
+  const [users] = useState(userSeed);
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
@@ -23,7 +22,18 @@ const Board = () => {
     if (prevListID === listID) {
       const newLists = lists.map((list) => {
         if (list.id === prevListID) {
-          list.tasks = [...list.tasks, movedTask];
+          if (list.tasks.some((task) => task.taskID === movedTask.taskID)) {
+            list.tasks.map((task) => {
+              if (task.taskID === movedTask.taskID) {
+                console.log();
+                task.assignedTo = movedTask.assignedTo;
+              }
+              return task;
+            });
+            console.log(list);
+          } else {
+            list.tasks = [...list.tasks, movedTask];
+          }
         }
         return list;
       });

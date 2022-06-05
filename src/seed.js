@@ -142,4 +142,6 @@ export const taskSeed = () => {
   ];
 };
 
-export default { userSeed, taskSeed };
+const exportedObject = { userSeed, taskSeed };
+
+export default exportedObject;
